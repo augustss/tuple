@@ -8,6 +8,10 @@ Synopsis:	Various functions on tuples
 Stability:      experimental
 Build-type:	Simple
 Description:	Various useful functions on tuples, overloaded on tuple size.
+Bug-reports:    https://github.com/haskell/augustss/tuple/issues
+Source-repository
+  type:     git
+  location: https://github.com/augustss/tuple
 Hs-Source-Dirs: src
 Build-Depends:	base < 10, OneTuple < 10
 Exposed-modules:
