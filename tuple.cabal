@@ -9,7 +9,7 @@ Stability:      experimental
 Build-type:	Simple
 Description:	Various useful functions on tuples, overloaded on tuple size.
 Hs-Source-Dirs: src
-Build-Depends:	base, OneTuple
+Build-Depends:	base < 10, OneTuple < 10
 Exposed-modules:
 	Data.Tuple.All
 	Data.Tuple.Curry
