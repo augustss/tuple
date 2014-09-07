@@ -1,7 +1,7 @@
 all:
 	@echo No target
 
-N=15
+N=32
 
 update:	updateCurry updateSelect updateSequence updateUpd
 
