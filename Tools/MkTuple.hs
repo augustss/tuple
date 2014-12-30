@@ -18,7 +18,8 @@ gens :: [(String, Int -> IO ())]
 gens = [("select", generateSel),
         ("sequence", generateSeq),
         ("curry", generateCurry),
-        ("update", generateUpd)
+        ("update", generateUpd),
+        ("prepend", generatePrep)
        ]
 
 ---------
@@ -86,3 +87,18 @@ generateUpdNinst j i = do
                intercalate "," [ "a" ++ show l | l <- [1..i]] ++ ") = " ++ res
  where res =
         "(" ++ intercalate "," [ if l == j then "b" else "a" ++ show l | l <- [1..i]] ++ ")"
+
+
+---------
+
+generatePrep :: Int -> IO ()
+generatePrep n = mapM_ generatePrepNinst [1..n]
+
+generatePrepNinst :: Int -> IO ()
+generatePrepNinst 1 = return ()
+generatePrepNinst i = do
+    putStrLn $ "instance Prep b" ++ " (" ++ intercalate "," ["a" ++ show l | l <- [1..i]] ++ ") " ++
+               res ++ " where prepend b (" ++
+               intercalate "," [ "a" ++ show l | l <- [1..i]] ++ ") = " ++ res
+ where res =
+        "(b," ++ intercalate "," [ "a" ++ show l | l <- [1..i]] ++ ")"
