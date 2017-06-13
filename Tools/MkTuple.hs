@@ -36,7 +36,7 @@ generateSelNinst :: Int -> Int -> IO ()
 generateSelNinst 1 1 = return ()
 generateSelNinst j i = do
     putStrLn $ "instance Sel" ++ show j ++ " (" ++ intercalate "," ["a" ++ show l | l <- [1..i]] ++ ") a" ++
-               show j ++ " where sel" ++ show j ++ " (" ++ 
+               show j ++ " where sel" ++ show j ++ " (" ++
                intercalate "," [if l == j then "x" else "_" | l <- [1..i]] ++ ") = x"
 
 ---------
@@ -46,11 +46,11 @@ generateSeq n = mapM_ generateSeqN [2..n]
 
 generateSeqN :: Int -> IO ()
 generateSeqN i =
-    putStrLn $ "instance (Monad m) => SequenceT (" ++
+    putStrLn $ "instance (Applicative m) => SequenceT (" ++
                intercalate "," ["m a" ++ show j | j <- [1..i]] ++ ") (m (" ++
                intercalate "," ["a" ++ show j | j <- [1..i]] ++ ")) where sequenceT (" ++
-               intercalate "," ["a" ++ show j | j <- [1..i]] ++ ") = return (" ++ replicate (i-1) ',' ++ ") `ap` " ++
-               intercalate " `ap` " ["a" ++ show j | j <- [1..i]]
+               intercalate "," ["a" ++ show j | j <- [1..i]] ++ ") = pure (" ++ replicate (i-1) ',' ++ ") <*> " ++
+               intercalate " <*> " ["a" ++ show j | j <- [1..i]]
 
 ---------
 
@@ -82,7 +82,7 @@ generateUpdNinst :: Int -> Int -> IO ()
 generateUpdNinst 1 1 = return ()
 generateUpdNinst j i = do
     putStrLn $ "instance Upd" ++ show j ++ " b (" ++ intercalate "," ["a" ++ show l | l <- [1..i]] ++ ") " ++
-               res ++ " where upd" ++ show j ++ " b (" ++ 
+               res ++ " where upd" ++ show j ++ " b (" ++
                intercalate "," [ "a" ++ show l | l <- [1..i]] ++ ") = " ++ res
  where res =
         "(" ++ intercalate "," [ if l == j then "b" else "a" ++ show l | l <- [1..i]] ++ ")"
