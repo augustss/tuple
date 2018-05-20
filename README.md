@@ -110,7 +110,7 @@ Executing actions
     two
     (putStrLn "one", ())
 
-The reason for this is that a pair is parameterized by two type parameters, the type of its first and second components, while a list is only parameterized by one type parameter, the type of its elements.  Since `sequence` only operates on one type parameter, the last one, it executes all the actions of the list, but only the action in the second component of the pair.  This behaviour makes a lot more sense once you realize that the type `(a,b)` is syntactic sugar for `(,) a b`, and that it is the parially-applied type constructor `(,) a` which has a `Foldable` instance, not `(,)` itself.
+The reason for this is that a pair is parameterized by two type parameters, the type of its first and second components, while a list is only parameterized by one type parameter, the type of its elements.  Since `sequence` only operates on one type parameter, the last one, it executes all the actions of the list, but only the action in the second component of the pair.  This behaviour makes a lot more sense once you realize that the type `(a,b)` is syntactic sugar for `(,) a b`, and that it is the partially-applied type constructor `(,) a` which has a `Foldable` instance, not `(,)` itself.
 
 In any case, even once we understand why `sequence` behaves this way, we might still want to execute the actions in both components of a pair.  We cannot use `Foldable` for this, but you guessed it: we can use `Data.Tuple.Sequence`, which provides sequencing functions for 1-tuples up to 32-tuples.
 
